@@ -1,95 +1,102 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Link from 'next/link';
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${process.env.API_URL}/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        const { email, password } = formData;
+        const user = userData.find((u: any) => u.email === email && u.password === password);
+        if (user) {
+          router.push('/draw-list');
+        } else {
+          alert('Email or password is incorrect. Please try again.');
+        }
+      } else {
+        alert('Login fail ! Please try again');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <form onSubmit={handleSubmit}>
+      <div className="login-layout">
+        <div className="login-content-layout">
+          <div className="login-form">
+            <div className="login-title">Login</div>
+            <div className="mb-3">
+              <label htmlFor="email" className="login-text mb-2">
+                Email
+              </label>
+              <input type="email"
+              className="form-control w-full"
+              onChange={handleChange}
+              id="email"
+              name="email"
+              aria-describedby="emailHelp" />
+              <span className="input-error"></span>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="login-text mb-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                Password
+                <a href="#" className="forgot-password"> Forgot password?</a>
+              </label>
+              <input type="password"
+              className="form-control w-full"
+              id="password"
+              placeholder=". . . . . . "
+              name="password"
+              onChange={handleChange}
+              />
+              <span className="input-error"></span>
+            </div>
+            <div className="mb-3 form-check">
+              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+              <label className="login-check-text" htmlFor="exampleCheck1">
+                Remember Me
+              </label>
+            </div>
+            <div className="d-flex" style={{ justifyContent: 'center' }}>
+              <button type="submit" id="btn-login" className="login-btn">
+                <span className="login-btn-text">Login</span>
+              </button>
+            </div>
+            <p style={{ textAlign: 'center' }}>
+              <span className="text">You don&apos;t have an account? </span>
+              <Link href="/signup">
+                <span className="blue-text"> Sign Up</span>
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </form>
   )
 }
