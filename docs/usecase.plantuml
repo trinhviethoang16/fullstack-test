@@ -1,0 +1,19 @@
+@startuml Timesheet usecase
+
+header UseCase
+
+:Admin:
+:User:
+
+left to right direction
+Admin -> (Can login)
+Admin -> (Can logout)
+Admin -> (Can see all figures)
+
+User -> (Can login)
+User -> (Can logout)
+User -> (Can sign up)
+User -> (Can only see own figures)
+
+
+@enduml
