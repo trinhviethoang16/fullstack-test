@@ -1,4 +1,4 @@
-@startuml testERD
+@startuml ERD
 
 skinparam linetype ortho
 
