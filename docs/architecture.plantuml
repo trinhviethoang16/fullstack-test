@@ -1,0 +1,61 @@
+@startuml Fullstack Test Architecture
+
+node "Web Server" {
+  folder "Fullstack Test Web Application - Nextjs" {
+    [Frontend code base]
+  }
+  note right
+    0. Language: Typesrcipt
+    1. Mobx: State management
+    2. Style with css
+    3. Build forms with React-hook-form
+  end note
+  folder "Fullstack Test API - Loopback 4" {
+    [Backend API code base]
+  }
+  note right
+    0. Language: Typesrcipt
+    1. Database: MongoDB
+    3. Build API with Loopback 4
+  end note
+
+  folder "Reverse proxy" {
+    [NginX] <-> [Frontend code base] #black
+    [NginX] -> [Backend API code base] #black
+  }
+}
+
+[Backend API code base] <==> [Database Server - Digital Ocean VPS] #red
+[Frontend code base] ==> [Backend API code base] #purple: send data
+[Realtime server system] ==> [Frontend code base] #purple
+
+node "Database Server" {
+  database "MongoDB" {
+    [Timesheet MongoDB Data]
+  }
+}
+
+frame "Browser" {
+  user -up-> [NginX]: access web application
+}
+
+note left of [Technology Description]
+  0. Digital Ocean (DO) VPS is 100% online time
+  1. DO VPS allow to integrate multiple services
+  2. DO VPS is very cheap and easy to scale
+
+  3. Nextjs is Frontend a scaffolding for Server side rendering
+  5. Nextjs using typescript to make code robust
+  6. Nextjs using React library to optimize rendering
+
+  7. Loopback 4 is Backend framework to generate API basing on description
+  8. Loopback 4 allow developers focus on database design
+  9. Loopback 4 auto generate documentation for easy maintaining
+  
+  10. MongoDB is NoSQL, good for startup company because of very flexible
+  11. MongoDB is very fast and easy modifying
+  12. MongoAtlas is a service, provide backup and restore
+  13. MongoAtlas use cluster architecture to store data
+  14. MongoAtlas provide a full security standard to protect data
+end note
+@enduml
