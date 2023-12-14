@@ -26,7 +26,7 @@ export class UserController {
     public userRepository : UserRepository,
   ) {}
 
-  @post('/users')
+  @post('/users/create')
   @response(200, {
     description: 'User model instance',
     content: {'application/json': {schema: getModelSchemaRef(User)}},

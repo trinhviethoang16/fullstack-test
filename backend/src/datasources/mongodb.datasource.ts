@@ -5,10 +5,10 @@ const config = {
   name: 'mongodb',
   connector: 'mongodb',
   url: 'mongodb+srv://trinhviethoang16:uzSkVBGTv8tJod4c@fullstack-test.5czasxu.mongodb.net/',
-  host: '127.0.0.1',
-  port: 27017,
+  host: '',
+  port: 0,
   user: '',
-  password: 'uzSkVBGTv8tJod4c',
+  password: '',
   database: 'fullstack-test',
   useNewUrlParser: true
 };

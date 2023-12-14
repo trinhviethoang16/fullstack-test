@@ -31,7 +31,7 @@ export class Figure extends Entity {
     type: 'number',
     required: true,
   })
-  meansurement: number;
+  measurement: number;
 
 
   constructor(data?: Partial<Figure>) {

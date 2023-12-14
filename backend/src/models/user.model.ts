@@ -1,4 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
+import { UserRepository } from '../repositories';
 
 @model()
 export class User extends Entity {
@@ -42,6 +43,21 @@ export class User extends Entity {
 
   constructor(data?: Partial<User>) {
     super(data);
+  }
+
+  static async adminAccount(userRepository: UserRepository) {
+    const adminExists = await userRepository.findOne({ where: { email: 'admin@gmail.com' } });
+
+    if (!adminExists) {
+      const adminData: Partial<User> = {
+        firstName: 'Admin',
+        lastName: 'UDT',
+        email: 'admin@gmail.com',
+        password: 'Admin123!@#',
+        isAdmin: true,
+      };
+      await userRepository.create(adminData);
+    }
   }
 }
 
