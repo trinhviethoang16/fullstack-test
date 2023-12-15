@@ -20,17 +20,17 @@ systemctl start mongod
 apt-get install -y mongodb-mongosh
 
 # Development enviroment config
-# cat <<EOL > /etc/nginx/sites-available/develop.conf
-# server {
-#     listen 3500;
-#     location / {
-#         proxy_pass http://127.0.0.1:3500;
-#         proxy_set_header Host $host;
-#         proxy_set_header X-Real-IP $remote_addr;
-#     }
-# }
-# EOL
-# ln -s /etc/nginx/sites-available/develop.conf /etc/nginx/sites-enabled/
+cat <<EOL > /etc/nginx/sites-available/develop.conf
+server {
+    listen 3500;
+    location / {
+        proxy_pass http://127.0.0.1:3500;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+EOL
+ln -s /etc/nginx/sites-available/develop.conf /etc/nginx/sites-enabled/
 
 # Staging enviroment config
 cat <<EOL > /etc/nginx/sites-available/staging.conf
@@ -58,8 +58,8 @@ docker stop frontend
 docker rm frontend
 
 # Development enviroment
-# docker pull trinhviethoang16/frontend:develop
-# docker run -d -p 3500:3000 trinhviethoang16/frontend:develop
+docker pull trinhviethoang16/frontend:develop
+docker run -d -p 3500:3000 trinhviethoang16/frontend:develop
 
 # Staging environment
 docker pull trinhviethoang16/frontend:lastest
