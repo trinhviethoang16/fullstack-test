@@ -39,9 +39,11 @@ Vagrant.configure("2") do |config|
   # Jenkins
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   # Development
-  config.vm.network "forwarded_port", guest: 3500, host: 3500
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
   # Staging
-  config.vm.network "forwarded_port", guest: 4000, host: 4000
+  config.vm.network "forwarded_port", guest: 3500, host: 3500
+  # Backend
+  config.vm.network "forwarded_port", guest: 3001, host: 3001
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
