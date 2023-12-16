@@ -22,9 +22,9 @@ apt-get install -y mongodb-mongosh
 # Development enviroment config
 cat <<EOL > /etc/nginx/sites-available/develop.conf
 server {
-    listen 3000;
+    listen 9000;
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:9000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -35,9 +35,9 @@ ln -s /etc/nginx/sites-available/develop.conf /etc/nginx/sites-enabled/
 # Staging enviroment config
 cat <<EOL > /etc/nginx/sites-available/staging.conf
 server {
-    listen 3500;
+    listen 9500;
     location / {
-        proxy_pass http://127.0.0.1:3500;
+        proxy_pass http://127.0.0.1:9500;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -48,9 +48,9 @@ ln -s /etc/nginx/sites-available/staging.conf /etc/nginx/sites-enabled/
 # Backend enviroment config
 cat <<EOL > /etc/nginx/sites-available/backend.conf
 server {
-    listen 3001;
+    listen 9001;
     location / {
-        proxy_pass http://127.0.0.1:3001;
+        proxy_pass http://127.0.0.1:9001;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -74,15 +74,15 @@ docker rm backend
 
 # Development enviroment
 docker pull trinhviethoang16/frontend:develop
-docker run -d -p 3000:3000 trinhviethoang16/frontend:develop
+docker run -d -p 9000:3000 trinhviethoang16/frontend:develop
 
 # Staging environment
 docker pull trinhviethoang16/frontend:lastest
-docker run -d -p 3500:3000 trinhviethoang16/frontend:latest
+docker run -d -p 9500:3000 trinhviethoang16/frontend:latest
 
 # Backend environment
 docker pull trinhviethoang16/backend:lastest
-docker run -d -p 3001:3001 trinhviethoang16/backend:latest
+docker run -d -p 9001:3001 trinhviethoang16/backend:latest
 
 # # Load environment variables from .env file
 source "/vagrant/.env"
