@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 import { UserRepository } from '../repositories';
 
-@model()
+@model({settings: {strict: false}})
 export class User extends Entity {
   @property({
     type: 'string',
@@ -40,6 +40,11 @@ export class User extends Entity {
   })
   isAdmin?: boolean;
 
+  // Define well-known properties here
+
+  // Indexer property to allow additional data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [prop: string]: any;
 
   constructor(data?: Partial<User>) {
     super(data);
@@ -56,6 +61,7 @@ export class User extends Entity {
         password: 'Admin123!@#',
         isAdmin: true,
       };
+
       await userRepository.create(adminData);
     }
   }

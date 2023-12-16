@@ -1,4 +1,4 @@
-# Install and config enviroment for project
+# Install and config environment for project
 apt-get update
 apt-get install -y nginx certbot python3-certbot-nginx net-tools docker docker-compose fontconfig openjdk-17-jre-headless gnupg curl
 
@@ -65,27 +65,11 @@ docker run -d -p 3500:3000 trinhviethoang16/frontend:develop
 docker pull trinhviethoang16/frontend:lastest
 docker run -d -p 4000:3000 trinhviethoang16/frontend:latest
 
-# MongoDB config
-# mongosh --file init-script.js
-# mongosh --eval "db = db.getSiblingDB('user'); db.createUser({user: 'user1', pwd: 'password1', roles: [{role: 'readWrite', db: 'user'}]}); db.createUser({user: 'user2', pwd: 'password2', roles: [{role: 'readWrite', db: 'user'}]}); db.adminCommand({createUser: 'admin1', pwd: 'adminpassword', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}]});"
-# mongosh --eval "db = db.getSiblingDB('product'); for(let i = 1; i <= 5; i++) db.item.insert({item: 'item' + i, value: 100});"
-# mongosh --eval "db = db.getSiblingDB('company'); 
-#                 db.projects.insertMany([
-#                     { name: 'Project AlApha', status: 'Active', budget: 100000, startDate: new Date('2023-01-01'), endDate: new Date('2023-01-01'), teamSize: 3 },
-#                     { name: 'Project Beta', status: 'Planning', budget: 75000, startDate: new Date('2023-03-15'), endDate: new Date('2023-01-02'), teamSize: 5 },
-#                     { name: 'Project Gamma', status: 'Completed', budget: 50000, startDate: new Date('2022-06-01'), endDate: new Date('2023-01-03'), teamSize: 4 },
-#                     { name: 'Project Delta', status: 'Active', budget: 120000, startDate: new Date('2023-02-20'), endDate: new Date('2023-01-04'), teamSize: 6 },
-#                     { name: 'Project Epsilon', status: 'On Hold', budget: 60000, startDate: new Date('2023-04-01'), endDate: new Date('2023-01-05'), teamSize: 2 }
-#                 ]);"
+# # Load environment variables from .env file
+source "/vagrant/.env"
 
-# Dump and Restore data
-# DUMP_DIR="/vagrant/data/dump/"
-# DUMP_DATE=`date +%Y-%m-%d`
-# mongodump --db product --out $BACKUP_DIR"product_$DATE"
-# mongorestore --db product $BACKUP_DIR"product_$DATE/product"
-
-# Backup data for company database
-# BACKUP_DIR="/vagrant/data/backup/"
-# BACKUP_DATE=`date +%Y-%m-%d`
-# mongodump --db company --out $BACKUP_DIR"company_$DATE"
-# mongorestore --db company $BACKUP_DIR"company_$DATE/company"
+# # Dump and Restore data
+DUMP_DIR="/vagrant/data/dump/"
+DUMP_DATE=`date +%Y-%m-%d`
+mongodump --uri=$MONGO_CONNECTION_STRING --db fullstack-test --out "$DUMP_DIR/User_$DUMP_DATE"
+# mongorestore --db fullstack-test "$DUMP_DIR/User_$DUMP_DATE"

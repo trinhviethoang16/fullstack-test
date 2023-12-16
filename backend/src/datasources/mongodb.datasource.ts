@@ -4,12 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongodb',
   connector: 'mongodb',
-  url: 'mongodb+srv://trinhviethoang16:uzSkVBGTv8tJod4c@fullstack-test.5czasxu.mongodb.net/',
-  host: '',
-  port: 0,
-  user: '',
-  password: '',
-  database: 'fullstack-test',
+  url: 'mongodb+srv://trinhviethoang16:uzSkVBGTv8tJod4c@fullstack-test.5czasxu.mongodb.net/fullstack-test',
   useNewUrlParser: true
 };
 

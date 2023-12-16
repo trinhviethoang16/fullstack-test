@@ -1,6 +1,6 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model()
+@model({settings: {strict: false}})
 export class Figure extends Entity {
   @property({
     type: 'string',
@@ -28,11 +28,16 @@ export class Figure extends Entity {
   symbol: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
-  measurement: number;
+  measurement: string;
 
+  // Define well-known properties here
+
+  // Indexer property to allow additional data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [prop: string]: any;
 
   constructor(data?: Partial<Figure>) {
     super(data);

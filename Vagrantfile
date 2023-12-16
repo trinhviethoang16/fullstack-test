@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   # Development
   config.vm.network "forwarded_port", guest: 3500, host: 3500
-  # Production
+  # Staging
   config.vm.network "forwarded_port", guest: 4000, host: 4000
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -52,13 +52,13 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
   # Digital Ocean
-  # config.vm.network "private_network", ip: "104.248.145.105"
+  config.vm.network "private_network", ip: "165.232.172.23"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.network "public_network", ip: "104.248.145.105"
-
+  config.vm.network "public_network"
+  
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
