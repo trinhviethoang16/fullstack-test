@@ -9,7 +9,7 @@ export class FigureRepository extends DefaultCrudRepository<
   FigureRelations
 > {
   constructor(
-    @inject('datasources.mongo') dataSource: MongodbDataSource,
+    @inject('datasources.mongodb') dataSource: MongodbDataSource,
   ) {
     super(Figure, dataSource);
   }

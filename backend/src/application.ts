@@ -9,6 +9,8 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import { UserRepository } from './repositories';
+import { User } from './models';
 
 export {ApplicationConfig};
 
@@ -40,5 +42,13 @@ export class BackendApplication extends BootMixin(
         nested: true,
       },
     };
+  }
+
+  async boot() {
+    await super.boot();
+    
+    // Create default admin account
+    const userRepository: UserRepository = await this.getRepository(UserRepository);
+    await User.adminAccount(userRepository);
   }
 }
