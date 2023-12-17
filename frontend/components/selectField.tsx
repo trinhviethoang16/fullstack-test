@@ -12,7 +12,13 @@ interface SelectFieldProps<T> {
 function SelectField<T>(props: SelectFieldProps<T>) {
   const { name, id, value, options, onChange } = props;
   return (
-    <select name={name} id={id} className="form-select" value={value} onChange={onChange}>
+    <select
+      name={name}
+      id={id}
+      className="form-select"
+      value={value}
+      onChange={onChange}
+    >
       <option value="">Choose shape</option>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
@@ -21,5 +27,5 @@ function SelectField<T>(props: SelectFieldProps<T>) {
       ))}
     </select>
   );
-};
+}
 export default SelectField;

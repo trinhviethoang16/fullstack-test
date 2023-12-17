@@ -17,5 +17,5 @@ const Figure = (props: FigureProps) => {
       ))}
     </div>
   );
-}
+};
 export default Figure;

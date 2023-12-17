@@ -1,10 +1,10 @@
-import React from 'react';
-import Link from 'next/link';
-import BackToList from '../../components/backToList';
+import React from "react";
+import Link from "next/link";
+import BackToList from "../../components/backToList";
 
 const EditPage = () => {
-    return (
-        <div className="edit-layout">
+  return (
+    <div className="edit-layout">
       <div className="edit-content-layout">
         <div className="title-holder">
           <Link className="col-5" href="/draw-list">
@@ -87,7 +87,7 @@ const EditPage = () => {
                 placeholder="7"
               />
             </div>
-            <div className="d-flex gap-4" style={{ justifyContent: 'center' }}>
+            <div className="d-flex gap-4" style={{ justifyContent: "center" }}>
               <button type="submit" className="draw-btn">
                 <span className="draw-btn-text">Cancel</span>
               </button>
@@ -99,6 +99,6 @@ const EditPage = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 export default EditPage;
