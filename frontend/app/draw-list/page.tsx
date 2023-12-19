@@ -1,17 +1,38 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react";
+import { FigureAPI } from '../../API/figure/index';
+import { StatusResponse } from "../../utils/enum";
+import { IFigureData } from "../../interfaces/figure";
 
 const DrawList = () => {
   const router = useRouter();
-  function handleCreateClick() {
-    router.push("/create-new");
-  }
+  const [figures, setFigures] = useState<IFigureData[]>([]);
+
   // function handleLogout() {
   //   router.push('/signin');
   // };
+
+  function handleCreateClick() {
+    router.push("/create-new");
+  }
+
+  useEffect(() => {
+    async function fetchFigures() {
+      try {
+        const response = await FigureAPI.getFigures();
+        if (response.status === StatusResponse.SUCCESS) {
+          setFigures(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching figures:", error);
+      }
+    }
+    fetchFigures();
+  }, []);
+  
   return (
     <div className="draw-list-layout">
       <div className="title-holder">
@@ -46,29 +67,14 @@ const DrawList = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>A</td>
-              <td>&</td>
-              <td>-</td>
-              <td>+</td>
-            </tr>
-            <tr>
-              <td>Rectangle</td>
-              <td>Diamond</td>
-              <td>Perfect Triangle</td>
-            </tr>
-            <tr>
-              <td>#FFFF03</td>
-              <td>#000000</td>
-              <td>#E2E2E2</td>
-              <td>#333333</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>6</td>
-              <td>5</td>
-              <td>5</td>
-            </tr>
+            {figures.map((figure, index) => (
+              <tr key={index}>
+                <td>{figure.symbol}</td>
+                <td>{figure.shape}</td>
+                <td>{figure.color}</td>
+                <td>{figure.measurement}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
