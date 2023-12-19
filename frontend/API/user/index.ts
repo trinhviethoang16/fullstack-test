@@ -24,14 +24,6 @@ export const UserAPI = {
   deleteUserById: async (id: string) => {
     return api.delete(`/users/${id}`);
   },
-  // loginUser: async (loginData: ILoginData) => {
-  //   try {
-  //     const response = await api.post('/users/login', loginData);
-  //     return response;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // },
   loginUser: async (loginData: ILoginData) => {
     return api.post('/users/login', loginData);
   },

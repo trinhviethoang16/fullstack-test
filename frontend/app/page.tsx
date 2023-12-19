@@ -6,6 +6,7 @@ import { UserAPI } from "@/API/user";
 import axios from "axios";
 import { observer } from "mobx-react";
 import LabelField from "@/components/labelField";
+import { StatusResponse } from "../utils/enum";
 
 const Home = () => {
   const router = useRouter();
@@ -22,36 +23,14 @@ const Home = () => {
     });
   }
 
-  // async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   const { email, password } = formData;
-  //   try {
-  //     const response = await UserAPI.loginUser({ email, password });
-  //     const { token } = response.data;
-  //     localStorage.setItem("token", token);
-  //     router.push("/draw-list");
-  //   } catch (error) {
-  //     if (axios.isAxiosError(error)) {
-  //       alert("Email or password is incorrect. Please try again.");
-  //     } else {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   }
-  // }
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.API_URL || 'http://localhost:3001'}/users/create`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const userData = await response.json();
+      const response = await UserAPI.getUsers();
+      if (response.status === StatusResponse.SUCCESS) {
+        const userData = response.data;
         const { email, password } = formData;
-        const user = userData.find((u: any) => u.email === email && u.password === password);
+        const user = userData.find((u: { email: string; password: string; }) => u.email === email && u.password === password);
         if (user) {
           router.push('/draw-list');
         } else {
