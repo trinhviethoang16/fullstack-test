@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import BackToList from "../../components/backToList";
 import { observer } from "mobx-react";
+import Label from "../../components/labelField";
+import InputField from "@/components/inputField";
 
 const EditPage = () => {
   return (
@@ -17,44 +19,25 @@ const EditPage = () => {
         <div className="edit-form">
           <form className="row g-3">
             <div className="col-md-6">
-              <label htmlFor="inputEmail4" className="form-label">
-                Symbol
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputEmail4"
-                placeholder="&"
-              />
+              <Label htmlFor="inputEmail4" name="Symbol" />
+              <InputField id="inputEmail4" name="Symbol" placeholder="&" />
             </div>
             <div className="col-md-6">
-              <label htmlFor="inputState" className="form-label">
-                State
-              </label>
+              <Label htmlFor="inputState" name="State" />
               <select id="inputState" className="form-select">
                 <option selected>Choose shape</option>
                 <option>...</option>
               </select>
             </div>
             <div className="col-md-6">
-              <label htmlFor="inputEmail4" className="form-label">
-                Color
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputEmail4"
-                placeholder="Ex: #111111"
-              />
+              <Label htmlFor="inputEmail4" name="Color" />
+              <InputField id="inputEmail4" name="Color" placeholder="#111111" />
             </div>
             <div className="col-md-6">
-              <label htmlFor="inputPassword4" className="form-label">
-                Measurement
-              </label>
-              <input
-                type="text"
-                className="form-control"
+              <Label htmlFor="inputPassword4" name="Measurement" />
+              <InputField
                 id="inputPassword4"
+                name="Measurement"
                 placeholder="7"
               />
             </div>

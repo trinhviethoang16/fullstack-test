@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { UserAPI } from "@/API/user";
 import axios from "axios";
 import { observer } from "mobx-react";
+import LabelField from "@/components/labelField";
 
 const Home = () => {
   const router = useRouter();
@@ -71,9 +72,7 @@ const Home = () => {
           <div className="login-form">
             <div className="login-title">Login</div>
             <div className="mb-3">
-              <label htmlFor="email" className="login-text mb-2">
-                Email
-              </label>
+              <LabelField htmlFor="email" name="Email" className="login-text mb-2"/>
               <input
                 type="email"
                 className="form-control w-full"
@@ -112,9 +111,7 @@ const Home = () => {
                 className="form-check-input"
                 id="exampleCheck1"
               />
-              <label className="login-check-text" htmlFor="exampleCheck1">
-                Remember Me
-              </label>
+              <LabelField htmlFor="exampleCheck1" name="Remember Me" />
             </div>
             <div className="d-flex" style={{ justifyContent: "center" }}>
               <button type="submit" id="btn-login" className="login-btn">

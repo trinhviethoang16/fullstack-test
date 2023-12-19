@@ -4,14 +4,15 @@ interface InputFieldProps {
   id: string;
   name: string;
   placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField = (props: InputFieldProps) => {
-  const { id, name, placeholder, onChange } = props;
+  const { id, name, placeholder, type, onChange } = props;
   return (
     <input
-      type="text"
+      type={type}
       className="form-control"
       id={id}
       name={name}

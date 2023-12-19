@@ -1,11 +1,13 @@
 "use client";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserAPI } from "../../API/user/index";
 import { StatusResponse } from "../../utils/enum";
 import { observer } from "mobx-react";
+import LabelField from "@/components/labelField";
+import InputField from "@/components/inputField";
 
 const SignUp = () => {
   const router = useRouter();
@@ -28,29 +30,28 @@ const SignUp = () => {
       });
     }
   }
-  
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (formData.password !== confirmPassword) {
-    alert('Password and confirm password do not match');
-    return;
-  }
+      alert("Password and confirm password do not match");
+      return;
+    }
     try {
       const response = await UserAPI.createUser(formData);
       alert("Sign up successful");
       if (response.data.status === StatusResponse.SUCCESS) {
-        alert('Sign up successful');
-        router.push('/');
-      } else if (response.data.status === StatusResponse.BAD_REQUEST){
-        alert('Email already exists');
-      }
-      else {
-        console.error('Sign up fail');
+        alert("Sign up successful");
+        router.push("/");
+      } else if (response.data.status === StatusResponse.BAD_REQUEST) {
+        alert("Email already exists");
+      } else {
+        console.error("Sign up fail");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
-  };
+  }
 
   return (
     <div className="signup-layout">
@@ -61,12 +62,9 @@ const SignUp = () => {
           </div>
           <form onSubmit={handleSubmit} className="row g-3">
             <div className="col-md-6">
-              <label htmlFor="firstName" className="form-label">
-                First name
-              </label>
-              <input
-                type="text"
-                className="form-control"
+              <LabelField htmlFor="firstName" name="First name" />
+              <InputField
+                id="firstName"
                 name="firstName"
                 placeholder="Enter your first name"
                 onChange={handleChange}
@@ -74,12 +72,9 @@ const SignUp = () => {
               <span className="input-error"></span>
             </div>
             <div className="col-md-6">
-              <label htmlFor="lastName" className="form-label">
-                Last Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
+              <LabelField htmlFor="lastName" name="Last name" />
+              <InputField
+                id="lastName"
                 name="lastName"
                 placeholder="Enter your last name"
                 onChange={handleChange}
@@ -87,12 +82,9 @@ const SignUp = () => {
               <span className="input-error"></span>
             </div>
             <div className="col-12">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
+              <LabelField htmlFor="email" name="Email" />
+              <InputField
+                id="email"
                 name="email"
                 placeholder="Enter your email"
                 onChange={handleChange}
@@ -100,28 +92,23 @@ const SignUp = () => {
               <span className="input-error"></span>
             </div>
             <div className="col-12">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
+              <LabelField htmlFor="password" name="Password" />
+              <InputField
+                id="password"
                 name="password"
+                type="password"
                 placeholder=". . . . . . ."
                 onChange={handleChange}
               />
               <span className="input-error"></span>
             </div>
             <div className="col-12">
-              <label htmlFor="confirmPassword" className="form-label">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
+              <LabelField htmlFor="confirmPassword" name="Confirm Password" />
+              <InputField
                 id="confirmPassword"
-                placeholder=". . . . . . ."
                 name="confirmPassword"
+                type="password"
+                placeholder=". . . . . . ."
                 onChange={handleChange}
               />
               <span className="input-error"></span>
