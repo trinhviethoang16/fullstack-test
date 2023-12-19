@@ -1,6 +1,8 @@
+import { Shape } from "@/utils/enum";
+
 export interface IFigureData {
-  shape: string;
+  shape: Shape | undefined;
   color: string;
   symbol: string;
-  measurement: string;
+  measurement: number;
 }
