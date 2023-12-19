@@ -14,6 +14,7 @@ const shapeOptions = [
 ];
 
 const CreateNew = () => {
+  const [shouldDraw, setShouldDraw] = useState(false);
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>();
   function changeShape(e: ChangeEvent<HTMLSelectElement>) {
     const value = e.target.value as Shape;
@@ -41,6 +42,7 @@ const CreateNew = () => {
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setShouldDraw(true);
     try {
       const response = await fetch(`${process.env.API_URL}/figures/create`, {
         method: "POST",
@@ -108,12 +110,14 @@ const CreateNew = () => {
                 onChange={handleFieldChange}
               />
             </div>
-            <DrawFigure
-              color={"#" + formData.color}
-              symbol={formData.symbol.toString()}
-              measurement={formData.measurement}
-              shape={formData.shape}
-            />
+            {shouldDraw && (
+              <DrawFigure
+                color={"#" + formData.color}
+                symbol={formData.symbol.toString()}
+                measurement={formData.measurement}
+                shape={formData.shape}
+              />
+            )}
             <div className="d-flex draw-button">
               <button type="submit" className="draw-btn">
                 <span className="draw-btn-text">Draw</span>
