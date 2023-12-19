@@ -5,6 +5,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserAPI } from "../../API/user/index";
 import { StatusResponse } from "../../utils/enum";
+import { observer } from "mobx-react";
 
 const SignUp = () => {
   const router = useRouter();
@@ -142,4 +143,4 @@ const SignUp = () => {
     </div>
   );
 };
-export default SignUp;
+export default observer(SignUp);

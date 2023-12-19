@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { observer } from 'mobx-react';
 
 const DrawList = () => {
   const router = useRouter();
@@ -68,4 +69,4 @@ const DrawList = () => {
     </div>
     )
 }
-export default DrawList;
+export default observer(DrawList);

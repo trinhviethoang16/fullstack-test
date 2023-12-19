@@ -4,8 +4,9 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserAPI } from "@/API/user";
 import axios from "axios";
+import { observer } from "mobx-react";
 
-export default function Home() {
+const Home = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -132,3 +133,4 @@ export default function Home() {
     </form>
   );
 }
+export default observer(Home);
