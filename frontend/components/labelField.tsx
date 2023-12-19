@@ -3,12 +3,13 @@ import React from "react";
 interface LabelFieldProps {
   htmlFor: string;
   name: string;
+  className?: string;
 }
 
 const LabelField = (props: LabelFieldProps) => {
-  const { htmlFor, name } = props;
+  const { htmlFor, name, className } = props;
   return (
-    <label htmlFor={htmlFor} className="form-label">
+    <label htmlFor={htmlFor} className={className}>
       {name}
     </label>
   );

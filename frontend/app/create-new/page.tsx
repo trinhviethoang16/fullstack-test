@@ -1,11 +1,13 @@
 "use client";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { Shape } from "../../utils/enum";
+import { Shape, StatusResponse } from "../../utils/enum";
 import DrawFigure from "../../components/drawFigure";
 import InputField from "../../components/inputField";
 import LabelField from "../../components/labelField";
 import SelectField from "../../components/selectField";
 import BackToList from "../../components/backToList";
+import { observer } from "mobx-react";
+import { FigureAPI } from "../../API/figure/index";
 
 const shapeOptions = [
   { value: Shape.PERFECT_TRIANGLE, label: "Perfect Triangle" },
@@ -14,6 +16,7 @@ const shapeOptions = [
 ];
 
 const CreateNew = () => {
+  const [shouldDraw, setShouldDraw] = useState(false);
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>();
   function changeShape(e: ChangeEvent<HTMLSelectElement>) {
     const value = e.target.value as Shape;
@@ -41,18 +44,13 @@ const CreateNew = () => {
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setShouldDraw(true);
     try {
-      const response = await fetch(`${process.env.API_URL}/figures/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        console.error("Draw fail");
+      const response = await FigureAPI.createFigure(formData);
+      if (response.status === StatusResponse.SUCCESS) {
+        alert("Figure created successfully");
       } else {
-        alert("Draw successful !!!");
+        alert("Figure created failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -108,12 +106,14 @@ const CreateNew = () => {
                 onChange={handleFieldChange}
               />
             </div>
-            <DrawFigure
-              color={"#" + formData.color}
-              symbol={formData.symbol.toString()}
-              measurement={formData.measurement}
-              shape={formData.shape}
-            />
+            {shouldDraw && (
+              <DrawFigure
+                color={"#" + formData.color}
+                symbol={formData.symbol.toString()}
+                measurement={formData.measurement}
+                shape={formData.shape}
+              />
+            )}
             <div className="d-flex draw-button">
               <button type="submit" className="draw-btn">
                 <span className="draw-btn-text">Draw</span>
@@ -125,4 +125,4 @@ const CreateNew = () => {
     </div>
   );
 };
-export default CreateNew;
+export default observer(CreateNew);

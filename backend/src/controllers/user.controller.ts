@@ -16,23 +16,74 @@ import {
   del,
   requestBody,
   response,
-  HttpErrors,
 } from '@loopback/rest';
-import { User } from '../models';
-import { UserRepository } from '../repositories';
-import { Credentials } from './credentials.model';
-import { UserService, TokenService } from '@loopback/authentication';
-import { inject } from '@loopback/core';
-import { TokenServiceBindings } from '../keys';
-import { UserProfile, securityId } from '@loopback/security';
+import {User} from '../models';
+import {UserRepository} from '../repositories';
+import {Credentials} from './credentials.model';
+import {UserService, TokenService} from '@loopback/authentication';
+import {inject} from '@loopback/core';
+// import { TokenServiceBindings } from '../keys';
+import {UserProfile, securityId} from '@loopback/security';
 
 export class UserController {
   constructor(
     @repository(UserRepository)
-    public userRepository: UserRepository,
-    @inject(TokenServiceBindings.TOKEN_SERVICE)
-    public tokenService: TokenService,
+    public userRepository : UserRepository,
   ) {}
+
+  // @post('/users/login', {
+  //   responses: {
+  //     '200': {
+  //       description: 'Token',
+  //       content: {
+  //         'application/json': {
+  //           schema: {
+  //             type: 'object',
+  //             properties: {
+  //               token: {
+  //                 type: 'string',
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // })
+  // async login(
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: {
+  //           type: 'object',
+  //           properties: {
+  //             email: { type: 'string' },
+  //             password: { type: 'string' },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   })
+  //   credentials: Credentials,
+  // ): Promise<{ token: string }> {
+  //   const user = await this.userRepository.findOne({
+  //     where: { email: credentials.email },
+  //   });
+  //   if (!user) {
+  //     throw new HttpErrors.Unauthorized('Invalid email or password.');
+  //   }
+  //   const passwordIsValid = user.password === credentials.password;
+  //   if (!passwordIsValid) {
+  //     throw new HttpErrors.Unauthorized('Invalid email or password.');
+  //   }
+  //   const userProfile: UserProfile = {
+  //     [securityId]: user?.id?.toString() ?? '',
+  //     name: user.firstName,
+  //     email: user.email,
+  //   };
+  //   const token = await this.tokenService.generateToken(userProfile);
+  //   return { token };
+  // }
 
   @post('/users/create')
   @response(200, {
@@ -52,67 +103,7 @@ export class UserController {
     })
     user: Omit<User, 'id'>,
   ): Promise<User> {
-    const existingUser = await this.userRepository.findOne({
-      where: {email: user.email},
-    });
-    if (existingUser) {
-      throw new HttpErrors.BadRequest('Email already exists');
-    }
     return this.userRepository.create(user);
-  }
-
-  @post('/users/login', {
-    responses: {
-      '200': {
-        description: 'Token',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'object',
-              properties: {
-                token: {
-                  type: 'string',
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  })
-  async login(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              email: { type: 'string' },
-              password: { type: 'string' },
-            },
-          },
-        },
-      },
-    })
-    credentials: Credentials,
-  ): Promise<{ token: string }> {
-    const user = await this.userRepository.findOne({
-      where: { email: credentials.email },
-    });
-    if (!user) {
-      throw new HttpErrors.Unauthorized('Invalid email or password.');
-    }
-    const passwordIsValid = user.password === credentials.password;
-    if (!passwordIsValid) {
-      throw new HttpErrors.Unauthorized('Invalid email or password.');
-    }
-    const userProfile: UserProfile = {
-      [securityId]: user?.id?.toString() ?? '',
-      name: user.firstName,
-      email: user.email,
-    };
-    const token = await this.tokenService.generateToken(userProfile);
-    return { token };
   }
 
   @get('/users/count')
@@ -120,7 +111,9 @@ export class UserController {
     description: 'User model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(@param.where(User) where?: Where<User>): Promise<Count> {
+  async count(
+    @param.where(User) where?: Where<User>,
+  ): Promise<Count> {
     return this.userRepository.count(where);
   }
 
@@ -136,7 +129,9 @@ export class UserController {
       },
     },
   })
-  async find(@param.filter(User) filter?: Filter<User>): Promise<User[]> {
+  async find(
+    @param.filter(User) filter?: Filter<User>,
+  ): Promise<User[]> {
     return this.userRepository.find(filter);
   }
 
@@ -170,7 +165,7 @@ export class UserController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>,
+    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
   ): Promise<User> {
     return this.userRepository.findById(id, filter);
   }

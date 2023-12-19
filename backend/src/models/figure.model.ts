@@ -31,7 +31,7 @@ export class Figure extends Entity {
     type: 'string',
     required: true,
   })
-  measurement: string;
+  measurement: number;
 
   // Define well-known properties here
 

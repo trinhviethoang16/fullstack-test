@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import BackToList from "../../components/backToList";
+import { observer } from "mobx-react";
 
 const DrawDetail = () => {
   const router = useRouter();
@@ -67,4 +68,4 @@ const DrawDetail = () => {
     </div>
   );
 };
-export default DrawDetail;
+export default observer(DrawDetail);
