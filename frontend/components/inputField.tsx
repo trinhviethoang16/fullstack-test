@@ -10,7 +10,14 @@ interface InputFieldProps {
 const InputField = (props: InputFieldProps) => {
   const { id, name, placeholder, onChange } = props;
   return (
-    <input type="text" className="form-control" id={id} name={name} placeholder={placeholder} onChange={onChange}/>
+    <input
+      type="text"
+      className="form-control"
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      onChange={onChange}
+    />
   );
 };
 export default InputField;

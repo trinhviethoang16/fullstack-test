@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 
 const DrawList = () => {
   const router = useRouter();
-  const handleCreateClick = () => {
+  function handleCreateClick() {
     router.push('/create-new');
   };
-  const handleLogout = () => {
-    router.push('/signin');
-  };
+  // function handleLogout() {
+  //   router.push('/signin');
+  // };
     return (
         <div className="draw-list-layout">
       <div className="title-holder">

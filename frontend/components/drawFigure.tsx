@@ -22,7 +22,7 @@ const DrawFigure = (props: DrawFigureProps) => {
     }
     return figures;
   }
-  
+
   function createRow(symbol: string, numCols: number): string {
     return Array.from({ length: numCols }, () => symbol).join("");
   }
