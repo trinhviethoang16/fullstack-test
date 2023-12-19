@@ -1,12 +1,14 @@
 "use client";
-import Link from "next/link";
+import Link from 'next/link';
+import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { UserAPI } from "../../API/user/index";
+import { StatusResponse } from "../../utils/enum";
 
 const SignUp = () => {
   const router = useRouter();
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,7 +16,7 @@ const SignUp = () => {
     password: "",
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     if (name === "confirmPassword") {
       setConfirmPassword(value);
@@ -24,31 +26,28 @@ const SignUp = () => {
         [name]: value,
       });
     }
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  }
+  
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (formData.password !== confirmPassword) {
-      alert("Password and confirm password do not match");
-      return;
-    }
+    alert('Password and confirm password do not match');
+    return;
+  }
     try {
-      const response = await fetch(`${process.env.API_URL}/users/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        alert("Sign up successful");
-        router.push("/");
-      } else {
-        console.error("Sign up fail");
+      const response = await UserAPI.createUser(formData);
+      alert("Sign up successful");
+      if (response.data.status === StatusResponse.SUCCESS) {
+        alert('Sign up successful');
+        router.push('/');
+      } else if (response.data.status === StatusResponse.BAD_REQUEST){
+        alert('Email already exists');
+      }
+      else {
+        console.error('Sign up fail');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 

@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { UserAPI } from "@/API/user";
+import axios from "axios";
 
 export default function Home() {
   const router = useRouter();
@@ -18,34 +20,48 @@ export default function Home() {
     });
   }
 
+  // async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   const { email, password } = formData;
+  //   try {
+  //     const response = await UserAPI.loginUser({ email, password });
+  //     const { token } = response.data;
+  //     localStorage.setItem("token", token);
+  //     router.push("/draw-list");
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       alert("Email or password is incorrect. Please try again.");
+  //     } else {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   }
+  // }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.API_URL}/users`, {
-        method: "GET",
+      const response = await fetch(`${process.env.API_URL || 'http://localhost:3001'}/users/create`, {
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
         const userData = await response.json();
         const { email, password } = formData;
-        const user = userData.find(
-          (u: any) => u.email === email && u.password === password
-        );
+        const user = userData.find((u: any) => u.email === email && u.password === password);
         if (user) {
-          router.push("/draw-list");
+          router.push('/draw-list');
         } else {
-          alert("Email or password is incorrect. Please try again.");
+          alert('Email or password is incorrect. Please try again.');
         }
       } else {
-        alert("Login fail ! Please try again");
+        alert('Login fail ! Please try again');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
