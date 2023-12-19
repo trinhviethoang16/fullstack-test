@@ -58,7 +58,7 @@ const CreateNew = () => {
       console.error("Error:", error);
     }
   }
-  
+
   return (
     <div className="create-new-layout">
       <div className="create-new-content-layout">
@@ -73,19 +73,40 @@ const CreateNew = () => {
           <form onSubmit={handleFormSubmit} className="row g-3">
             <div className="col-md-6">
               <LabelField htmlFor="symbol" name="Symbol" />
-              <InputField id="symbol" name="symbol" placeholder="Ex: &" onChange={handleFieldChange}/>
+              <InputField
+                id="symbol"
+                name="symbol"
+                placeholder="Ex: &"
+                onChange={handleFieldChange}
+              />
             </div>
             <div className="col-md-6">
               <LabelField htmlFor="shape" name="State" />
-              <SelectField name="shape" id="shape" value={selectedShape} options={shapeOptions} onChange={changeShape}/>
+              <SelectField
+                name="shape"
+                id="shape"
+                value={selectedShape}
+                options={shapeOptions}
+                onChange={changeShape}
+              />
             </div>
             <div className="col-md-6">
               <LabelField htmlFor="color" name="Color" />
-              <InputField id="color" name="color" placeholder="Ex: #111111" onChange={handleFieldChange}/>
+              <InputField
+                id="color"
+                name="color"
+                placeholder="Ex: #111111"
+                onChange={handleFieldChange}
+              />
             </div>
             <div className="col-md-6">
               <LabelField htmlFor="measurement" name="Measurement" />
-              <InputField id="measurement" name="measurement" placeholder="Ex: 7" onChange={handleFieldChange}/>
+              <InputField
+                id="measurement"
+                name="measurement"
+                placeholder="Ex: 7"
+                onChange={handleFieldChange}
+              />
             </div>
             <DrawFigure
               color={"#" + formData.color}
@@ -103,5 +124,5 @@ const CreateNew = () => {
       </div>
     </div>
   );
-}
+};
 export default CreateNew;

@@ -8,7 +8,9 @@ interface LabelFieldProps {
 const LabelField = (props: LabelFieldProps) => {
   const { htmlFor, name } = props;
   return (
-    <label htmlFor={htmlFor} className="form-label">{name}</label>
-  )
-}
+    <label htmlFor={htmlFor} className="form-label">
+      {name}
+    </label>
+  );
+};
 export default LabelField;
