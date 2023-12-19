@@ -6,6 +6,7 @@ import InputField from "../../components/inputField";
 import LabelField from "../../components/labelField";
 import SelectField from "../../components/selectField";
 import BackToList from "../../components/backToList";
+import { observer } from "mobx-react";
 
 const shapeOptions = [
   { value: Shape.PERFECT_TRIANGLE, label: "Perfect Triangle" },
@@ -129,4 +130,4 @@ const CreateNew = () => {
     </div>
   );
 };
-export default CreateNew;
+export default observer(CreateNew);

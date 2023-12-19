@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import BackToList from "../../components/backToList";
+import { observer } from "mobx-react";
 
 const EditPage = () => {
   return (
@@ -70,4 +72,4 @@ const EditPage = () => {
     </div>
   );
 };
-export default EditPage;
+export default observer(EditPage);
