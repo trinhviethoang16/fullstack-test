@@ -24,7 +24,7 @@ cat <<EOL > /etc/nginx/sites-available/develop.conf
 server {
     listen 9000;
     location / {
-        server_name: 165.232.172.23;
+        server_name: 104.248.144.201;
         proxy_pass http://127.0.0.1:9000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -38,7 +38,7 @@ cat <<EOL > /etc/nginx/sites-available/staging.conf
 server {
     listen 9500;
     location / {
-        server_name: 165.232.172.23;
+        server_name: 104.248.144.201;
         proxy_pass http://127.0.0.1:9500;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
