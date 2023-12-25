@@ -15,7 +15,7 @@ node_modules
 **/.vagrant
 
 # .ssh files
-.ssh
+# .ssh
 
 # Local .terraform directories
 **/.terraform/*
