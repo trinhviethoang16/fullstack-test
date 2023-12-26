@@ -29,9 +29,9 @@ resource "digitalocean_droplet" "fullstack-test" {
       "sudo apt-get install -y nginx certbot python3-certbot-nginx net-tools",
       "docker pull trinhviethoang16/frontend-amd64:latest",
       "docker pull trinhviethoang16/backend-amd64:latest",
-      "echo 'server { listen 80; location / { server_name: 146.190.53.119; proxy_pass http://127.0.0.1:3000; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; } }' | sudo tee /etc/nginx/sites-available/production.conf",
+      "echo 'server { listen 80; location / { server_name: 68.183.188.125; proxy_pass http://127.0.0.1:3000; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; } }' | sudo tee /etc/nginx/sites-available/production.conf",
       "sudo ln -s /etc/nginx/sites-available/production.conf /etc/nginx/sites-enabled/",
-      "echo 'server { listen 80; location / { server_name: 146.190.53.119; proxy_pass http://127.0.0.1:3001; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; } }' | sudo tee /etc/nginx/sites-available/backend.conf",
+      "echo 'server { listen 80; location / { server_name: 68.183.188.125; proxy_pass http://127.0.0.1:3001; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; } }' | sudo tee /etc/nginx/sites-available/backend.conf",
       "sudo ln -s /etc/nginx/sites-available/backend.conf /etc/nginx/sites-enabled/",
       "sudo docker run -d -p 3000:3000 trinhviethoang16/frontend-amd64:latest",
       "sudo docker run -d -p 3001:3001 trinhviethoang16/backend-amd64:latest"
