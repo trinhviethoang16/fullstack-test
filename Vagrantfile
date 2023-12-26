@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     config.vm.box_download_insecure = true
     config.vm.provider "vmware_desktop" do |vm|
         vm.ssh_info_public = true
-        vm.gui = true
+        vm.gui = false
         vm.linked_clone = false
         vm.vmx["ethernet0.virtualdev"] = "vmxnet3"
         vm.memory = "2048"
@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
   # Digital Ocean
-  # config.vm.network "private_network", ip: "104.248.144.201"
+  # config.vm.network "private_network", ip: "146.190.53.119"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
